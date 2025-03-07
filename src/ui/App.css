@@ -1,0 +1,19 @@
+#root {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+
+.initialTips {
+  color: black;
+}
+
+.loginContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}

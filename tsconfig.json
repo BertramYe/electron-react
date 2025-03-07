@@ -1,0 +1,16 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "noUnusedLocals": true,  // 关闭声明但未使用的变量检查
+    "noUnusedParameters": true,
+    "incremental": false,
+    // "baseUrl": "./",
+    // "paths": {
+    //   "@/*": ["src/*"]
+    // }
+  }
+}

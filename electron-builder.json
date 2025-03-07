@@ -1,0 +1,43 @@
+{
+    "appId": "com.BertramYe.electron-react-template",
+    "productName": "electron-react-template",
+    "icon": "log.png",
+    "asar": true,
+    "files": [
+        "dist-react",
+        "dist-electron"
+    ],
+    "win": {
+        "target": "nsis",
+        "requestedExecutionLevel": "highestAvailable" 
+    },
+    "nsis": {
+        "oneClick": false,
+        "allowToChangeInstallationDirectory": true,
+        "perMachine": true,
+        "createDesktopShortcut": true,
+        "createStartMenuShortcut": false,
+        "runAfterFinish": false
+    },
+    "mac": {
+        "target": "dmg"
+    },
+    "dmg": {
+        "title": "electron-react-template",
+        "iconSize": 100,
+        "format": "ULFO",
+        "window": {
+            "x": 400,
+            "y": 300,
+            "width": 600,
+            "height": 400
+        }
+    },
+    "linux": {
+        "target": [
+            "AppImage"
+        ],
+        "category": "Utility",
+        "compression": "maximum"
+    }
+}

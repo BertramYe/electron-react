@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        // "incremental": false,
+        "strict": true,
+        "target": "ESNext",
+        "module": "NodeNext",
+        "outDir": "../../dist-electron",
+        "moduleResolution": "nodenext",
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true // 忽略当前一些来自 dependencies 的报错信息
+    }
+}
