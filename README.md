@@ -44,6 +44,8 @@ $ npm run package:linux
 
  - when  the frontend `input` label's type was set as the `file`, the file can't be directly transfer into the backend `main.ts` as a `formData`,
    except that the you read the content of the file, and transfer it into the `bs64` inform or `binary` string datas, then you can get it via the bridge `preload.ts`
+ 
+ - for the alert of the `(Insecure Content-Security-Policy)` , you can reference to the docs: `https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP`
 
 
 

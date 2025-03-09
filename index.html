@@ -5,7 +5,14 @@
     <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
     <link rel="icon" type="image/png" href="/log.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src '*';" /> -->
+    <!-- 注意由于下面的 style-src 是由于动态生成的，故而你不得不设置 为 unsafe-inline， 以确保能够加载 来自 http://localhost 的样式资源信息，
+      否则可能会有 Insecure Content-Security-Policy 警告信息-->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self'; 
+      script-src 'self' http://localhost; 
+      style-src 'self' http://localhost 'unsafe-inline';  
+      img-src 'self' http://localhost;
+    ">
     <title>electron-react-template</title>
   </head>
   <body>
