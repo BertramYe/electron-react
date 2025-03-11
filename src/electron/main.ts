@@ -1,44 +1,49 @@
-import {app, BrowserWindow, ipcMain,nativeTheme} from 'electron'
-import path from 'path';
-import { isDev } from './lib/utils.js'
+import {app, BrowserWindow, ipcMain,nativeTheme, Tray} from 'electron'
 import { ChannalMessager } from './lib/Messager.js';
+import { GetPreloadPath, LoadUI } from './lib/PathResolve.js';
+import { PostHandler } from './lib/RequestHandler.js';
+import { CreateTray } from './lib/TrayHelper.js';
+import { CreateWindowMenu } from './lib/MenuHelper.js';
+
 
 
 const CreateWindows = () => {
-    const isdev = isDev()
+    // 设置软件主题样式默认为夜间模式
+    nativeTheme.themeSource = 'dark'; 
     const main_win = new BrowserWindow({
         title:'electron-react-template',
         alwaysOnTop:false,
-        autoHideMenuBar:true,
+        // autoHideMenuBar:true, // 自定义菜单时，这个选项一定要关闭，否则就看不到自定义菜单内容了
         width:800,
         height:700,
         webPreferences:{
-            devTools:isdev,
+            // devTools:isDev(),   // 这里移除是因为我将其是否打开 开发工具选项放进了 menu 里面了
             nodeIntegrationInWorker: true,
             nodeIntegration:false,
             // preload
-            preload:path.join(app.getAppPath(), "dist-electron/preload.cjs"), 
-        }
+            preload:GetPreloadPath(), 
+        },
+        // 如果想自定义当前软件的 frame 类型，可以将下面这个设置为 false 然后再在 App.tsx 里面 自定义和重写 frame 里面自带的 关闭，放大，缩小等功能键
+        // 但是这么做，有一个弊端，那就是会导致对应的自定义菜单栏我们看不到，从而也必须在 App.tsx 里面 重写对应的菜单功能
+        frame:true 
     })
     
     // 这个对象类用于信息的发送与log的处理
     const channel_messager = new ChannalMessager(main_win)
 
-    main_win.webContents.on('did-finish-load',async()=>{
-        // 设置软件主题样式默认为夜间模式
-        nativeTheme.themeSource = 'dark'; 
-    })
+    // 初始化状态，用于改变整个应用程序的首页状态
+    // 当然这里可以有更多可以写和描述的东西
+    main_win.webContents.on('did-finish-load',()=>main_win.webContents.send('INITAIL_CHANNEL',{Status:2}))
+    // 创建隐藏托盘
+    CreateTray(main_win)
+
+    // 创建主菜单
+    CreateWindowMenu(main_win)
    
-    if(isdev){  // development enviroment
-        main_win.webContents.openDevTools()
-        main_win.loadURL("http://localhost:5123")
-    }else{ // production
-        main_win.loadFile(path.join(app.getAppPath() + '/dist-react/index.html'))
-    }
-    
-    ipcMain.handle('POST_CHANNEL',async(e,postdata)=> {
-        console.log('postdata',postdata)
-    })
+    // 根据不同的环境加载UI界面
+    LoadUI(main_win)
+    // 对于post请求的监听
+    ipcMain.handle('POST_CHANNEL',async(e,post_data)=> await PostHandler(e,post_data,main_win))
     return main_win
 }
 

@@ -7,6 +7,9 @@
         "dist-react",
         "dist-electron"
     ],
+    "extraResource":[
+        "src/assets/**" 
+    ],
     "win": {
         "target": "nsis",
         "requestedExecutionLevel": "highestAvailable" 

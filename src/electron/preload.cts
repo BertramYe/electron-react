@@ -39,9 +39,12 @@ interface ElectronAPI {
 
 
 contextBridge.exposeInMainWorld('ElectronAPI',{
-    POST:async(PostData)=>{
-        return await ipcRenderer.invoke("POST_CHANNEL",PostData)
+    InitialDict:{
+        0:"Application Initializing !",
+        1:"Token InValid, Need Relogin !",
+        2:"Token valid, Starting Application !"
     },
+    POST:async(PostData)=> await ipcRenderer.invoke("POST_CHANNEL",PostData),
     OnGet:(key,callback) => {
 
         ipcRenderer.on(key,callback)

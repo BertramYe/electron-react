@@ -47,7 +47,9 @@ $ npm run package:linux
  
  - for the alert of the `(Insecure Content-Security-Policy)` , you can reference to the docs: `https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP`
 
-
+ - to fix and remove the ealint cache error, you can use the commend here below:
+   - rm -rf node_modules/.cache/eslint
+   - npx eslint . --no-cache
 
 
 

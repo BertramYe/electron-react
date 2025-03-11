@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        // "incremental": false,
+        "incremental": false,  // 关闭自增，让开发时的代码修改立即生效
         "strict": true,
         "target": "ESNext",
         "module": "NodeNext",
